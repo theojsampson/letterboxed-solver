@@ -6,7 +6,7 @@ def get_user_input():
     letters = []
     for i in range(0,12):
         next_letter = input('Input the next letter: ')
-        letters.append(next_letter.lower())
+        letters.append(next_letter.upper())
     return letters
 
 def digraph_removal(letters: list):
@@ -74,31 +74,6 @@ def find_second_word(words: list, letters: list, leftover_letters: list, removed
     leftover_words_sorted = sorted(leftover_words, key = len, reverse = True)
     return leftover_words_sorted
 
-# loop until a valid second word is found
-# def second_word_loop(words: list, letters: list, leftover_letters: list, removed_digraphs: list, valid_first_words: list):
-#     solution = False
-#     counter = 0
-#     while solution == False:
-#         # determine which letters still need to be used
-#         used_letters = set(valid_first_words[counter])
-#         print(f'Current First Word: {valid_first_words[counter]}')
-#         leftover_letters = list(set(letters) - used_letters)
-#         # figure out a second word using the remaining letters
-#         second_words_sorted = find_second_word(words, letters, leftover_letters, removed_digraphs)
-#         valid_second_words = []
-#         for i in range(len(second_words_sorted)):
-#             if second_words_sorted[i].startswith(f'{valid_first_words[counter][-1]}'):
-#                 valid_second_words.append(second_words_sorted[i])
-#         print(f'Valid Second Words: {valid_second_words}')
-#         # check that combination solves, i.e. that the list is nonempty
-#         if len(valid_second_words) != 0:
-#             solution = True
-#             valid_second_words.append(counter)
-#         else:
-#             counter += 1
-#             print(counter)
-#     return valid_second_words
-
 def all_possible_solutions(words: list, letters: list, leftover_letters: list, removed_digraphs: list, valid_first_words: list):
     solutions = []
     num_of_first_words = len(valid_first_words)
@@ -119,11 +94,9 @@ def all_possible_solutions(words: list, letters: list, leftover_letters: list, r
 
 def main():
     # get words
-    text_file = open("filtered_words.txt", "r")
+    text_file = open("dictionary.txt", "r")
     words = text_file.read().split('\n')
-    print(len(words))
     letters = get_user_input()
-    #letters = ['a', 'f', 'n', 'l', 'b', 's', 'e', 'z', 'o', 'i', 'r', 'y']
     # remove words containing invalid digraphs from word list
     removed_digraphs = digraph_removal(letters)
     # sort the valid first words from most unique to least unique letters
